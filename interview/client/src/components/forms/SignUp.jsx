@@ -1,8 +1,10 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useCreateStudentMutation } from '../../api/StudentApiSlice';
 
 export const SignUp = () => {
-
+    const[createStudent] = useCreateStudentMutation()
+          
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -16,14 +18,19 @@ export const SignUp = () => {
                 .required('Required'),
             email: Yup.string()
                 .email('Invalid email address')
-                .max(20, 'Must be 20 characters or less')
+                .max(30, 'Must be 20 characters or less')
                 .required('Required'),
             class: Yup.string().required('Required'),
             level: Yup.string().required('Required'),
         }),
-        onSubmit: (values,{resetForm}) => {
-            console.log(values);
-            resetForm();
+        onSubmit: async (values, { resetForm }) => {
+            try {
+                const response = await createStudent(values).unwrap();
+                console.log('Student created successfully:', response);
+                resetForm();
+            } catch (error) {
+                console.error('Failed to create student:', error);
+            }
         },
     });
 
