@@ -1,14 +1,20 @@
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
+import CountCards from './components/common/CountCards'
+import ViewTable from './components/common/ViewTable'
 
 function App() {
   
 
   return (
     <>
-    <h1 className="text-4xl  text-teal-400  font-bold underline">
-      Hello world!
-    </h1>
+    <Router>
+      <Routes>
+        <Route path="/" element={<CountCards />} />
+        <Route path="/ViewTable" element={<ViewTable />} />
+      </Routes>
+    </Router>
     </>
       )
 }
