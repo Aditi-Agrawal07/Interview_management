@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { log } from 'console';
+import { Student, StudentStatus } from './entities/student.entity';
 
 @Controller('student')
 export class StudentController {
@@ -22,6 +23,10 @@ export class StudentController {
   async remove(@Param('id') id: string): Promise<{ message: string }> {   
     return await this.studentService.remove(id);}
 
+    @Get('filter')
+    async filterByStatus(@Query('status') status: string): Promise<any> {
+      return this.studentService.findByStatus(status);
+    }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.studentService.getStudentById(id);

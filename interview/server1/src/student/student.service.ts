@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
-import { Student } from './entities/student.entity';
+import { Student, StudentStatus } from './entities/student.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -29,5 +29,9 @@ export class StudentService {
   async remove(id: string): Promise<{ message: string }> {
     await this.studentModel.deleteOne({ _id: id }).exec();
     return { message: "Student deleted successfully" };
+  }
+
+  async findByStatus(status: string): Promise<Student[]> {
+    return await this.studentModel.find({ status: { $in: status } }).exec();
   }
 }
