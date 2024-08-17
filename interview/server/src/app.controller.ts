@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Param, UseInterceptors} from '@nestjs/common';
 import { CACHE_MANAGER, CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
 // import { Cache } from 'cache-man/ager';
-import { RedisService } from './radis/radis.service';
+import { RedisService } from './redis/redis.service';
 
 
 
